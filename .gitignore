@@ -1,0 +1,31 @@
+# Maven y archivos generados
+**/target/
+**/build/
+**/dependency-reduced-pom.xml
+*.class
+*.jar
+*.war
+*.log
+hs_err_pid*
+replay_pid*
+# Configuracion privada por equipo
+**/application-local.properties
+**/application-*.local.properties
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.pem
+# Editores y herramientas locales
+**/.vscode/
+**/.idea/
+**/.settings/
+**/.classpath
+**/.project
+**/.factorypath
+**/.github/modernize/
+.github/modernize/
+Thumbs.db
+.DS_Store

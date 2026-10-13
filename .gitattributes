@@ -1,0 +1,12 @@
+* text=auto
+*.java text eol=lf
+*.xml text eol=lf
+*.properties text eol=lf
+*.example text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+**/mvnw text eol=lf
+*.cmd text eol=crlf
+*.jpg binary
+*.png binary
