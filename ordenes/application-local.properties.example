@@ -1,0 +1,6 @@
+# Copiar como application-local.properties en esta carpeta y reemplazar los valores.
+# Usar las mismas claves JWT e interna en los cuatro servicios.
+spring.datasource.username=root
+spring.datasource.password=
+eventpass.jwt.secret=REEMPLAZAR-POR-LA-MISMA-CLAVE-JWT-ALEATORIA-EN-LOS-CUATRO-SERVICIOS
+eventpass.internal-key=REEMPLAZAR-POR-LA-MISMA-CLAVE-INTERNA-ALEATORIA-EN-LOS-CUATRO-SERVICIOS
