@@ -1,0 +1,1821 @@
+[
+  {
+    "numero": 1,
+    "descripcion": "login-staff",
+    "servicio": "usuarios",
+    "metodo": "POST",
+    "url": "http://localhost:19081/api/auth/login",
+    "solicitud": {
+      "email": "admin@eventpass.cl",
+      "password": "[contrasena de pruebas omitida]"
+    },
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "accessToken": "[JWT omitido]",
+      "tokenType": "Bearer",
+      "expiresIn": 3600,
+      "usuario": {
+        "id": 1,
+        "nombre": "Administrador",
+        "email": "admin@eventpass.cl",
+        "rol": "STAFF",
+        "activo": true
+      }
+    }
+  },
+  {
+    "numero": 2,
+    "descripcion": "registro-invalido",
+    "servicio": "usuarios",
+    "metodo": "POST",
+    "url": "http://localhost:19081/api/auth/registro",
+    "solicitud": {
+      "nombre": "",
+      "email": "invalido",
+      "password": "[contrasena de pruebas omitida]"
+    },
+    "esperado": 400,
+    "recibido": 400,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Datos invalidos",
+      "instance": "/api/auth/registro",
+      "status": 400,
+      "title": "Bad Request",
+      "errors": {
+        "email": "debe ser una dirección de correo electrónico con formato correcto",
+        "nombre": "no debe estar vacío",
+        "password": "el tamaño debe estar entre 8 y 72"
+      }
+    }
+  },
+  {
+    "numero": 3,
+    "descripcion": "usuario-creado",
+    "servicio": "usuarios",
+    "metodo": "POST",
+    "url": "http://localhost:19081/api/auth/registro",
+    "solicitud": {
+      "nombre": "Comprador QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "password": "[contrasena de pruebas omitida]"
+    },
+    "esperado": 201,
+    "recibido": 201,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Comprador QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "rol": "COMPRADOR",
+      "activo": true
+    }
+  },
+  {
+    "numero": 4,
+    "descripcion": "correo-duplicado",
+    "servicio": "usuarios",
+    "metodo": "POST",
+    "url": "http://localhost:19081/api/auth/registro",
+    "solicitud": {
+      "nombre": "Comprador QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "password": "[contrasena de pruebas omitida]"
+    },
+    "esperado": 409,
+    "recibido": 409,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Datos duplicados o recurso relacionado",
+      "instance": "/api/auth/registro",
+      "status": 409,
+      "title": "Conflict"
+    }
+  },
+  {
+    "numero": 5,
+    "descripcion": "login-comprador",
+    "servicio": "usuarios",
+    "metodo": "POST",
+    "url": "http://localhost:19081/api/auth/login",
+    "solicitud": {
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "password": "[contrasena de pruebas omitida]"
+    },
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "accessToken": "[JWT omitido]",
+      "tokenType": "Bearer",
+      "expiresIn": 3600,
+      "usuario": {
+        "id": 3,
+        "nombre": "Comprador QA-20261013-d16ec48a",
+        "email": "qa-20261013-d16ec48a@eventpass.cl",
+        "rol": "COMPRADOR",
+        "activo": true
+      }
+    }
+  },
+  {
+    "numero": 6,
+    "descripcion": "perfil-comprador",
+    "servicio": "usuarios",
+    "metodo": "GET",
+    "url": "http://localhost:19081/api/usuarios/me",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Comprador QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "rol": "COMPRADOR",
+      "activo": true
+    }
+  },
+  {
+    "numero": 7,
+    "descripcion": "usuario-actualizado",
+    "servicio": "usuarios",
+    "metodo": "PUT",
+    "url": "http://localhost:19081/api/usuarios/3",
+    "solicitud": {
+      "nombre": "Comprador actualizado QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl"
+    },
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Comprador actualizado QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "rol": "COMPRADOR",
+      "activo": true
+    }
+  },
+  {
+    "numero": 8,
+    "descripcion": "usuario-consultado",
+    "servicio": "usuarios",
+    "metodo": "GET",
+    "url": "http://localhost:19081/api/usuarios/3",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Comprador actualizado QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "rol": "COMPRADOR",
+      "activo": true
+    }
+  },
+  {
+    "numero": 9,
+    "descripcion": "rol-staff",
+    "servicio": "usuarios",
+    "metodo": "PATCH",
+    "url": "http://localhost:19081/api/usuarios/3/rol?rol=STAFF",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Comprador actualizado QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "rol": "STAFF",
+      "activo": true
+    }
+  },
+  {
+    "numero": 10,
+    "descripcion": "rol-comprador",
+    "servicio": "usuarios",
+    "metodo": "PATCH",
+    "url": "http://localhost:19081/api/usuarios/3/rol?rol=COMPRADOR",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Comprador actualizado QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "rol": "COMPRADOR",
+      "activo": true
+    }
+  },
+  {
+    "numero": 11,
+    "descripcion": "usuarios-listados",
+    "servicio": "usuarios",
+    "metodo": "GET",
+    "url": "http://localhost:19081/api/usuarios?page=0&size=100&sort=id,asc",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "content": [
+        {
+          "id": 1,
+          "nombre": "Administrador",
+          "email": "admin@eventpass.cl",
+          "rol": "STAFF",
+          "activo": true
+        },
+        {
+          "id": 2,
+          "nombre": "Comprador Demo",
+          "email": "comprador@eventpass.cl",
+          "rol": "COMPRADOR",
+          "activo": true
+        },
+        {
+          "id": 3,
+          "nombre": "Comprador actualizado QA-20261013-d16ec48a",
+          "email": "qa-20261013-d16ec48a@eventpass.cl",
+          "rol": "COMPRADOR",
+          "activo": true
+        }
+      ],
+      "empty": false,
+      "first": true,
+      "last": true,
+      "number": 0,
+      "numberOfElements": 3,
+      "pageable": {
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 100,
+        "paged": true,
+        "sort": {
+          "empty": false,
+          "sorted": true,
+          "unsorted": false
+        },
+        "unpaged": false
+      },
+      "size": 100,
+      "sort": {
+        "empty": false,
+        "sorted": true,
+        "unsorted": false
+      },
+      "totalElements": 3,
+      "totalPages": 1
+    }
+  },
+  {
+    "numero": 12,
+    "descripcion": "comprador-sin-permiso",
+    "servicio": "usuarios",
+    "metodo": "GET",
+    "url": "http://localhost:19081/api/usuarios?page=0&size=20",
+    "solicitud": null,
+    "esperado": 403,
+    "recibido": 403,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Se requiere rol STAFF",
+      "instance": "/api/usuarios",
+      "status": 403,
+      "title": "Forbidden"
+    }
+  },
+  {
+    "numero": 13,
+    "descripcion": "sin-token",
+    "servicio": "usuarios",
+    "metodo": "GET",
+    "url": "http://localhost:19081/api/usuarios/me",
+    "solicitud": null,
+    "esperado": 401,
+    "recibido": 401,
+    "correcto": true,
+    "respuesta": null
+  },
+  {
+    "numero": 14,
+    "descripcion": "usuario-inexistente",
+    "servicio": "usuarios",
+    "metodo": "GET",
+    "url": "http://localhost:19081/api/usuarios/99999999",
+    "solicitud": null,
+    "esperado": 404,
+    "recibido": 404,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Recurso no encontrado",
+      "instance": "/api/usuarios/99999999",
+      "status": 404,
+      "title": "Not Found"
+    }
+  },
+  {
+    "numero": 15,
+    "descripcion": "comprador-no-crea-evento",
+    "servicio": "eventos",
+    "metodo": "POST",
+    "url": "http://localhost:19082/api/eventos",
+    "solicitud": {
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-20T20:00:00-04:00",
+      "capacidad": 3,
+      "precio": 1000
+    },
+    "esperado": 403,
+    "recibido": 403,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Se requiere rol STAFF",
+      "instance": "/api/eventos",
+      "status": 403,
+      "title": "Forbidden"
+    }
+  },
+  {
+    "numero": 16,
+    "descripcion": "evento-invalido",
+    "servicio": "eventos",
+    "metodo": "POST",
+    "url": "http://localhost:19082/api/eventos",
+    "solicitud": {
+      "nombre": "",
+      "lugar": "",
+      "fecha": "2020-01-01T00:00:00Z",
+      "capacidad": 0,
+      "precio": -1
+    },
+    "esperado": 400,
+    "recibido": 400,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Datos invalidos",
+      "instance": "/api/eventos",
+      "status": 400,
+      "title": "Bad Request",
+      "errors": {
+        "fecha": "debe ser una fecha futura",
+        "precio": "debe ser mayor que o igual a 0.00",
+        "nombre": "no debe estar vacío",
+        "lugar": "no debe estar vacío",
+        "capacidad": "debe ser mayor que o igual a 1"
+      }
+    }
+  },
+  {
+    "numero": 17,
+    "descripcion": "evento-creado",
+    "servicio": "eventos",
+    "metodo": "POST",
+    "url": "http://localhost:19082/api/eventos",
+    "solicitud": {
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-20T20:00:00-04:00",
+      "capacidad": 3,
+      "precio": 1000
+    },
+    "esperado": 201,
+    "recibido": 201,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 3,
+      "precio": 1000,
+      "activo": true
+    }
+  },
+  {
+    "numero": 18,
+    "descripcion": "evento-actualizado",
+    "servicio": "eventos",
+    "metodo": "PUT",
+    "url": "http://localhost:19082/api/eventos/2",
+    "solicitud": {
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-20T20:00:00-04:00",
+      "capacidad": 3,
+      "precio": 1000
+    },
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 3,
+      "precio": 1000,
+      "activo": true
+    }
+  },
+  {
+    "numero": 19,
+    "descripcion": "evento-consultado",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos/2",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 3,
+      "precio": 1000.0,
+      "activo": true
+    }
+  },
+  {
+    "numero": 20,
+    "descripcion": "eventos-listados",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos?page=0&size=100&sort=id,asc",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "content": [
+        {
+          "id": 1,
+          "nombre": "Concierto EventPass",
+          "lugar": "Teatro Central",
+          "fecha": "2027-06-21T00:00:00Z",
+          "capacidad": 100,
+          "disponibles": 98,
+          "precio": 15000.0,
+          "activo": true
+        },
+        {
+          "id": 2,
+          "nombre": "Evento QA-20261013-d16ec48a",
+          "lugar": "Recinto QA actualizado",
+          "fecha": "2027-08-21T00:00:00Z",
+          "capacidad": 3,
+          "disponibles": 3,
+          "precio": 1000.0,
+          "activo": true
+        }
+      ],
+      "empty": false,
+      "first": true,
+      "last": true,
+      "number": 0,
+      "numberOfElements": 2,
+      "pageable": {
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 100,
+        "paged": true,
+        "sort": {
+          "empty": false,
+          "sorted": true,
+          "unsorted": false
+        },
+        "unpaged": false
+      },
+      "size": 100,
+      "sort": {
+        "empty": false,
+        "sorted": true,
+        "unsorted": false
+      },
+      "totalElements": 2,
+      "totalPages": 1
+    }
+  },
+  {
+    "numero": 21,
+    "descripcion": "aforo-inicial",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos/2/disponibilidad",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 3,
+      "precio": 1000.0,
+      "activo": true
+    }
+  },
+  {
+    "numero": 22,
+    "descripcion": "orden-creada",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes",
+    "solicitud": {
+      "eventoId": 2,
+      "cantidad": 2,
+      "claveSolicitud": "QA-20261013-d16ec48a-principal"
+    },
+    "esperado": 201,
+    "recibido": 201,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 2,
+      "precioUnitario": 1000.0,
+      "total": 2000.0,
+      "estado": "PENDIENTE",
+      "creadaEn": "2026-10-13T22:37:34.670546Z",
+      "observacion": null
+    }
+  },
+  {
+    "numero": 23,
+    "descripcion": "cantidad-invalida",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes",
+    "solicitud": {
+      "eventoId": 2,
+      "cantidad": 0,
+      "claveSolicitud": "QA-20261013-d16ec48a-invalida"
+    },
+    "esperado": 400,
+    "recibido": 400,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Datos invalidos",
+      "instance": "/api/ordenes",
+      "status": 400,
+      "title": "Bad Request",
+      "errors": {
+        "cantidad": "debe ser mayor que o igual a 1"
+      }
+    }
+  },
+  {
+    "numero": 24,
+    "descripcion": "orden-idempotente",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes",
+    "solicitud": {
+      "eventoId": 2,
+      "cantidad": 2,
+      "claveSolicitud": "QA-20261013-d16ec48a-principal"
+    },
+    "esperado": 201,
+    "recibido": 201,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 2,
+      "precioUnitario": 1000.0,
+      "total": 2000.0,
+      "estado": "PENDIENTE",
+      "creadaEn": "2026-10-13T22:37:34.670546Z",
+      "observacion": null
+    }
+  },
+  {
+    "numero": 25,
+    "descripcion": "clave-con-otros-datos",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes",
+    "solicitud": {
+      "eventoId": 2,
+      "cantidad": 1,
+      "claveSolicitud": "QA-20261013-d16ec48a-principal"
+    },
+    "esperado": 409,
+    "recibido": 409,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Clave de solicitud utilizada con otros datos",
+      "instance": "/api/ordenes",
+      "status": 409,
+      "title": "Conflict"
+    }
+  },
+  {
+    "numero": 26,
+    "descripcion": "orden-actualizada",
+    "servicio": "ordenes",
+    "metodo": "PUT",
+    "url": "http://localhost:19083/api/ordenes/2",
+    "solicitud": {
+      "observacion": "Persistencia QA-20261013-d16ec48a"
+    },
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 2,
+      "precioUnitario": 1000.0,
+      "total": 2000.0,
+      "estado": "PENDIENTE",
+      "creadaEn": "2026-10-13T22:37:34.670546Z",
+      "observacion": "Persistencia QA-20261013-d16ec48a"
+    }
+  },
+  {
+    "numero": 27,
+    "descripcion": "orden-consultada",
+    "servicio": "ordenes",
+    "metodo": "GET",
+    "url": "http://localhost:19083/api/ordenes/2",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 2,
+      "precioUnitario": 1000.0,
+      "total": 2000.0,
+      "estado": "PENDIENTE",
+      "creadaEn": "2026-10-13T22:37:34.670546Z",
+      "observacion": "Persistencia QA-20261013-d16ec48a"
+    }
+  },
+  {
+    "numero": 28,
+    "descripcion": "ordenes-del-comprador",
+    "servicio": "ordenes",
+    "metodo": "GET",
+    "url": "http://localhost:19083/api/ordenes?page=0&size=100&sort=id,asc",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "content": [
+        {
+          "id": 2,
+          "usuarioId": 3,
+          "eventoId": 2,
+          "cantidad": 2,
+          "precioUnitario": 1000.0,
+          "total": 2000.0,
+          "estado": "PENDIENTE",
+          "creadaEn": "2026-10-13T22:37:34.670546Z",
+          "observacion": "Persistencia QA-20261013-d16ec48a"
+        }
+      ],
+      "empty": false,
+      "first": true,
+      "last": true,
+      "number": 0,
+      "numberOfElements": 1,
+      "pageable": {
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 100,
+        "paged": true,
+        "sort": {
+          "empty": false,
+          "sorted": true,
+          "unsorted": false
+        },
+        "unpaged": false
+      },
+      "size": 100,
+      "sort": {
+        "empty": false,
+        "sorted": true,
+        "unsorted": false
+      },
+      "totalElements": 1,
+      "totalPages": 1
+    }
+  },
+  {
+    "numero": 29,
+    "descripcion": "orden-de-otro-comprador",
+    "servicio": "ordenes",
+    "metodo": "GET",
+    "url": "http://localhost:19083/api/ordenes/1",
+    "solicitud": null,
+    "esperado": 403,
+    "recibido": 403,
+    "correcto": true,
+    "respuesta": {
+      "detail": "No tienes acceso a este recurso",
+      "instance": "/api/ordenes/1",
+      "status": 403,
+      "title": "Forbidden"
+    }
+  },
+  {
+    "numero": 30,
+    "descripcion": "orden-confirmada",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes/2/procesar",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 2,
+      "precioUnitario": 1000.0,
+      "total": 2000.0,
+      "estado": "CONFIRMADA",
+      "creadaEn": "2026-10-13T22:37:34.670546Z",
+      "observacion": "Persistencia QA-20261013-d16ec48a"
+    }
+  },
+  {
+    "numero": 31,
+    "descripcion": "aforo-reservado",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos/2/disponibilidad",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 1,
+      "precio": 1000.0,
+      "activo": true
+    }
+  },
+  {
+    "numero": 32,
+    "descripcion": "tickets-generados",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets?page=0&size=100&sort=id,asc",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "content": [
+        {
+          "id": 1,
+          "codigo": "c9d5baf9-590e-4f4a-be6d-bb860fc797fd",
+          "ordenId": 1,
+          "usuarioId": 2,
+          "eventoId": 1,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T21:33:35.160332Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 2,
+          "codigo": "df5b8dee-dff0-45a8-b669-a34f05a3ce76",
+          "ordenId": 1,
+          "usuarioId": 2,
+          "eventoId": 1,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T21:33:35.160332Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 3,
+          "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+          "ordenId": 2,
+          "usuarioId": 3,
+          "eventoId": 2,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T22:37:39.078297Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 4,
+          "codigo": "3873802b-38e1-4230-8ffc-5f63127bea26",
+          "ordenId": 2,
+          "usuarioId": 3,
+          "eventoId": 2,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T22:37:39.134353Z",
+          "usadoEn": null,
+          "validadoPor": null
+        }
+      ],
+      "empty": false,
+      "first": true,
+      "last": true,
+      "number": 0,
+      "numberOfElements": 4,
+      "pageable": {
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 100,
+        "paged": true,
+        "sort": {
+          "empty": false,
+          "sorted": true,
+          "unsorted": false
+        },
+        "unpaged": false
+      },
+      "size": 100,
+      "sort": {
+        "empty": false,
+        "sorted": true,
+        "unsorted": false
+      },
+      "totalElements": 4,
+      "totalPages": 1
+    }
+  },
+  {
+    "numero": 33,
+    "descripcion": "procesamiento-idempotente",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes/2/procesar",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 2,
+      "precioUnitario": 1000.0,
+      "total": 2000.0,
+      "estado": "CONFIRMADA",
+      "creadaEn": "2026-10-13T22:37:34.670546Z",
+      "observacion": "Persistencia QA-20261013-d16ec48a"
+    }
+  },
+  {
+    "numero": 34,
+    "descripcion": "tickets-sin-duplicados",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets?page=0&size=100&sort=id,asc",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "content": [
+        {
+          "id": 1,
+          "codigo": "c9d5baf9-590e-4f4a-be6d-bb860fc797fd",
+          "ordenId": 1,
+          "usuarioId": 2,
+          "eventoId": 1,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T21:33:35.160332Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 2,
+          "codigo": "df5b8dee-dff0-45a8-b669-a34f05a3ce76",
+          "ordenId": 1,
+          "usuarioId": 2,
+          "eventoId": 1,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T21:33:35.160332Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 3,
+          "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+          "ordenId": 2,
+          "usuarioId": 3,
+          "eventoId": 2,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T22:37:39.078297Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 4,
+          "codigo": "3873802b-38e1-4230-8ffc-5f63127bea26",
+          "ordenId": 2,
+          "usuarioId": 3,
+          "eventoId": 2,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T22:37:39.134353Z",
+          "usadoEn": null,
+          "validadoPor": null
+        }
+      ],
+      "empty": false,
+      "first": true,
+      "last": true,
+      "number": 0,
+      "numberOfElements": 4,
+      "pageable": {
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 100,
+        "paged": true,
+        "sort": {
+          "empty": false,
+          "sorted": true,
+          "unsorted": false
+        },
+        "unpaged": false
+      },
+      "size": 100,
+      "sort": {
+        "empty": false,
+        "sorted": true,
+        "unsorted": false
+      },
+      "totalElements": 4,
+      "totalPages": 1
+    }
+  },
+  {
+    "numero": 35,
+    "descripcion": "ticket-actualizado",
+    "servicio": "tickets",
+    "metodo": "PUT",
+    "url": "http://localhost:19084/api/tickets/4",
+    "solicitud": {
+      "titular": "Comprador actualizado QA-20261013-d16ec48a"
+    },
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 4,
+      "codigo": "3873802b-38e1-4230-8ffc-5f63127bea26",
+      "ordenId": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "titular": "Comprador actualizado QA-20261013-d16ec48a",
+      "estado": "EMITIDO",
+      "creadoEn": "2026-10-13T22:37:39.134353Z",
+      "usadoEn": null,
+      "validadoPor": null
+    }
+  },
+  {
+    "numero": 36,
+    "descripcion": "ticket-consultado",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets/4",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 4,
+      "codigo": "3873802b-38e1-4230-8ffc-5f63127bea26",
+      "ordenId": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "titular": "Comprador actualizado QA-20261013-d16ec48a",
+      "estado": "EMITIDO",
+      "creadoEn": "2026-10-13T22:37:39.134353Z",
+      "usadoEn": null,
+      "validadoPor": null
+    }
+  },
+  {
+    "numero": 37,
+    "descripcion": "comprador-no-valida",
+    "servicio": "tickets",
+    "metodo": "POST",
+    "url": "http://localhost:19084/api/tickets/validaciones",
+    "solicitud": {
+      "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+      "eventoId": 2
+    },
+    "esperado": 403,
+    "recibido": 403,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Se requiere rol STAFF",
+      "instance": "/api/tickets/validaciones",
+      "status": 403,
+      "title": "Forbidden"
+    }
+  },
+  {
+    "numero": 38,
+    "descripcion": "ticket-otro-evento",
+    "servicio": "tickets",
+    "metodo": "POST",
+    "url": "http://localhost:19084/api/tickets/validaciones",
+    "solicitud": {
+      "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+      "eventoId": 99999999
+    },
+    "esperado": 409,
+    "recibido": 409,
+    "correcto": true,
+    "respuesta": {
+      "detail": "El ticket pertenece a otro evento",
+      "instance": "/api/tickets/validaciones",
+      "status": 409,
+      "title": "Conflict"
+    }
+  },
+  {
+    "numero": 39,
+    "descripcion": "orden-sin-aforo-creada",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes",
+    "solicitud": {
+      "eventoId": 2,
+      "cantidad": 2,
+      "claveSolicitud": "QA-20261013-d16ec48a-sin-aforo"
+    },
+    "esperado": 201,
+    "recibido": 201,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 2,
+      "precioUnitario": 1000.0,
+      "total": 2000.0,
+      "estado": "PENDIENTE",
+      "creadaEn": "2026-10-13T22:37:40.941021100Z",
+      "observacion": null
+    }
+  },
+  {
+    "numero": 40,
+    "descripcion": "compra-sin-aforo",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes/3/procesar",
+    "solicitud": null,
+    "esperado": 409,
+    "recibido": 409,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Operacion rechazada: aforo insuficiente, tickets utilizados o estado incompatible",
+      "instance": "/api/ordenes/3/procesar",
+      "status": 409,
+      "title": "Conflict"
+    }
+  },
+  {
+    "numero": 41,
+    "descripcion": "aforo-tras-rechazo",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos/2/disponibilidad",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 1,
+      "precio": 1000.0,
+      "activo": true
+    }
+  },
+  {
+    "numero": 42,
+    "descripcion": "orden-pendiente-cancelada",
+    "servicio": "ordenes",
+    "metodo": "DELETE",
+    "url": "http://localhost:19083/api/ordenes/3",
+    "solicitud": null,
+    "esperado": 204,
+    "recibido": 204,
+    "correcto": true,
+    "respuesta": null
+  },
+  {
+    "numero": 43,
+    "descripcion": "orden-cancelable-creada",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes",
+    "solicitud": {
+      "eventoId": 2,
+      "cantidad": 1,
+      "claveSolicitud": "QA-20261013-d16ec48a-cancelable"
+    },
+    "esperado": 201,
+    "recibido": 201,
+    "correcto": true,
+    "respuesta": {
+      "id": 4,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 1,
+      "precioUnitario": 1000.0,
+      "total": 1000.0,
+      "estado": "PENDIENTE",
+      "creadaEn": "2026-10-13T22:37:41.239658900Z",
+      "observacion": null
+    }
+  },
+  {
+    "numero": 44,
+    "descripcion": "orden-cancelable-confirmada",
+    "servicio": "ordenes",
+    "metodo": "POST",
+    "url": "http://localhost:19083/api/ordenes/4/procesar",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 4,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 1,
+      "precioUnitario": 1000.0,
+      "total": 1000.0,
+      "estado": "CONFIRMADA",
+      "creadaEn": "2026-10-13T22:37:41.239659Z",
+      "observacion": null
+    }
+  },
+  {
+    "numero": 45,
+    "descripcion": "aforo-agotado",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos/2/disponibilidad",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 0,
+      "precio": 1000.0,
+      "activo": true
+    }
+  },
+  {
+    "numero": 46,
+    "descripcion": "ticket-cancelable-consultado",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets?page=0&size=100&sort=id,asc",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "content": [
+        {
+          "id": 1,
+          "codigo": "c9d5baf9-590e-4f4a-be6d-bb860fc797fd",
+          "ordenId": 1,
+          "usuarioId": 2,
+          "eventoId": 1,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T21:33:35.160332Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 2,
+          "codigo": "df5b8dee-dff0-45a8-b669-a34f05a3ce76",
+          "ordenId": 1,
+          "usuarioId": 2,
+          "eventoId": 1,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T21:33:35.160332Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 3,
+          "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+          "ordenId": 2,
+          "usuarioId": 3,
+          "eventoId": 2,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T22:37:39.078297Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 4,
+          "codigo": "3873802b-38e1-4230-8ffc-5f63127bea26",
+          "ordenId": 2,
+          "usuarioId": 3,
+          "eventoId": 2,
+          "titular": "Comprador actualizado QA-20261013-d16ec48a",
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T22:37:39.134353Z",
+          "usadoEn": null,
+          "validadoPor": null
+        },
+        {
+          "id": 5,
+          "codigo": "cd8592c9-acd4-48a5-a266-7b1659835b1e",
+          "ordenId": 4,
+          "usuarioId": 3,
+          "eventoId": 2,
+          "titular": null,
+          "estado": "EMITIDO",
+          "creadoEn": "2026-10-13T22:37:41.453333Z",
+          "usadoEn": null,
+          "validadoPor": null
+        }
+      ],
+      "empty": false,
+      "first": true,
+      "last": true,
+      "number": 0,
+      "numberOfElements": 5,
+      "pageable": {
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 100,
+        "paged": true,
+        "sort": {
+          "empty": false,
+          "sorted": true,
+          "unsorted": false
+        },
+        "unpaged": false
+      },
+      "size": 100,
+      "sort": {
+        "empty": false,
+        "sorted": true,
+        "unsorted": false
+      },
+      "totalElements": 5,
+      "totalPages": 1
+    }
+  },
+  {
+    "numero": 47,
+    "descripcion": "ticket-cancelado",
+    "servicio": "tickets",
+    "metodo": "DELETE",
+    "url": "http://localhost:19084/api/tickets/5",
+    "solicitud": null,
+    "esperado": 204,
+    "recibido": 204,
+    "correcto": true,
+    "respuesta": null
+  },
+  {
+    "numero": 48,
+    "descripcion": "ticket-baja-logica",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets/5",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 5,
+      "codigo": "cd8592c9-acd4-48a5-a266-7b1659835b1e",
+      "ordenId": 4,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "titular": null,
+      "estado": "CANCELADO",
+      "creadoEn": "2026-10-13T22:37:41.453333Z",
+      "usadoEn": null,
+      "validadoPor": null
+    }
+  },
+  {
+    "numero": 49,
+    "descripcion": "orden-confirmada-cancelada",
+    "servicio": "ordenes",
+    "metodo": "DELETE",
+    "url": "http://localhost:19083/api/ordenes/4",
+    "solicitud": null,
+    "esperado": 204,
+    "recibido": 204,
+    "correcto": true,
+    "respuesta": null
+  },
+  {
+    "numero": 50,
+    "descripcion": "orden-baja-logica",
+    "servicio": "ordenes",
+    "metodo": "GET",
+    "url": "http://localhost:19083/api/ordenes/4",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 4,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 1,
+      "precioUnitario": 1000.0,
+      "total": 1000.0,
+      "estado": "CANCELADA",
+      "creadaEn": "2026-10-13T22:37:41.239659Z",
+      "observacion": null
+    }
+  },
+  {
+    "numero": 51,
+    "descripcion": "aforo-devuelto",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos/2/disponibilidad",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 1,
+      "precio": 1000.0,
+      "activo": true
+    }
+  },
+  {
+    "numero": 52,
+    "descripcion": "ticket-cancelado-no-ingresa",
+    "servicio": "tickets",
+    "metodo": "POST",
+    "url": "http://localhost:19084/api/tickets/validaciones",
+    "solicitud": {
+      "codigo": "cd8592c9-acd4-48a5-a266-7b1659835b1e",
+      "eventoId": 2
+    },
+    "esperado": 409,
+    "recibido": 409,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Ticket ya utilizado o cancelado",
+      "instance": "/api/tickets/validaciones",
+      "status": 409,
+      "title": "Conflict"
+    }
+  },
+  {
+    "numero": 53,
+    "descripcion": "ingreso-exitoso",
+    "servicio": "tickets",
+    "metodo": "POST",
+    "url": "http://localhost:19084/api/tickets/validaciones",
+    "solicitud": {
+      "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+      "eventoId": 2
+    },
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+      "ordenId": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "titular": null,
+      "estado": "USADO",
+      "creadoEn": "2026-10-13T22:37:39.078297Z",
+      "usadoEn": "2026-10-13T22:37:41.955005400Z",
+      "validadoPor": 1
+    }
+  },
+  {
+    "numero": 54,
+    "descripcion": "segundo-ingreso-rechazado",
+    "servicio": "tickets",
+    "metodo": "POST",
+    "url": "http://localhost:19084/api/tickets/validaciones",
+    "solicitud": {
+      "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+      "eventoId": 2
+    },
+    "esperado": 409,
+    "recibido": 409,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Ticket ya utilizado o cancelado",
+      "instance": "/api/tickets/validaciones",
+      "status": 409,
+      "title": "Conflict"
+    }
+  },
+  {
+    "numero": 55,
+    "descripcion": "ticket-usado-no-se-cancela",
+    "servicio": "tickets",
+    "metodo": "DELETE",
+    "url": "http://localhost:19084/api/tickets/3",
+    "solicitud": null,
+    "esperado": 409,
+    "recibido": 409,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Ticket utilizado",
+      "instance": "/api/tickets/3",
+      "status": 409,
+      "title": "Conflict"
+    }
+  },
+  {
+    "numero": 56,
+    "descripcion": "orden-con-ingreso-no-se-cancela",
+    "servicio": "ordenes",
+    "metodo": "DELETE",
+    "url": "http://localhost:19083/api/ordenes/2",
+    "solicitud": null,
+    "esperado": 409,
+    "recibido": 409,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Operacion rechazada: aforo insuficiente, tickets utilizados o estado incompatible",
+      "instance": "/api/ordenes/2",
+      "status": 409,
+      "title": "Conflict"
+    }
+  },
+  {
+    "numero": 57,
+    "descripcion": "ticket-inexistente",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets/99999999",
+    "solicitud": null,
+    "esperado": 404,
+    "recibido": 404,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Recurso no encontrado",
+      "instance": "/api/tickets/99999999",
+      "status": 404,
+      "title": "Not Found"
+    }
+  },
+  {
+    "numero": 58,
+    "descripcion": "evento-desactivado-con-reservas",
+    "servicio": "eventos",
+    "metodo": "DELETE",
+    "url": "http://localhost:19082/api/eventos/2",
+    "solicitud": null,
+    "esperado": 204,
+    "recibido": 204,
+    "correcto": true,
+    "respuesta": null
+  },
+  {
+    "numero": 59,
+    "descripcion": "evento-baja-logica",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos/2",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 1,
+      "precio": 1000.0,
+      "activo": false
+    }
+  },
+  {
+    "numero": 60,
+    "descripcion": "usuario-desactivado",
+    "servicio": "usuarios",
+    "metodo": "DELETE",
+    "url": "http://localhost:19081/api/usuarios/3",
+    "solicitud": null,
+    "esperado": 204,
+    "recibido": 204,
+    "correcto": true,
+    "respuesta": null
+  },
+  {
+    "numero": 61,
+    "descripcion": "usuario-baja-logica",
+    "servicio": "usuarios",
+    "metodo": "GET",
+    "url": "http://localhost:19081/api/usuarios/3",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Comprador actualizado QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "rol": "COMPRADOR",
+      "activo": false
+    }
+  },
+  {
+    "numero": 62,
+    "descripcion": "usuario-desactivado-no-inicia-sesion",
+    "servicio": "usuarios",
+    "metodo": "POST",
+    "url": "http://localhost:19081/api/auth/login",
+    "solicitud": {
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "password": "[contrasena de pruebas omitida]"
+    },
+    "esperado": 401,
+    "recibido": 401,
+    "correcto": true,
+    "respuesta": {
+      "detail": "Credenciales invalidas",
+      "instance": "/api/auth/login",
+      "status": 401,
+      "title": "Unauthorized"
+    }
+  },
+  {
+    "numero": 63,
+    "descripcion": "usuario-antes-reinicio",
+    "servicio": "usuarios",
+    "metodo": "GET",
+    "url": "http://localhost:19081/api/usuarios/3",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Comprador actualizado QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "rol": "COMPRADOR",
+      "activo": false
+    }
+  },
+  {
+    "numero": 64,
+    "descripcion": "evento-antes-reinicio",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos/2",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 1,
+      "precio": 1000.0,
+      "activo": false
+    }
+  },
+  {
+    "numero": 65,
+    "descripcion": "orden-antes-reinicio",
+    "servicio": "ordenes",
+    "metodo": "GET",
+    "url": "http://localhost:19083/api/ordenes/2",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 2,
+      "precioUnitario": 1000.0,
+      "total": 2000.0,
+      "estado": "CONFIRMADA",
+      "creadaEn": "2026-10-13T22:37:34.670546Z",
+      "observacion": "Persistencia QA-20261013-d16ec48a"
+    }
+  },
+  {
+    "numero": 66,
+    "descripcion": "ticket-antes-reinicio",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets/3",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+      "ordenId": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "titular": null,
+      "estado": "USADO",
+      "creadoEn": "2026-10-13T22:37:39.078297Z",
+      "usadoEn": "2026-10-13T22:37:41.955005Z",
+      "validadoPor": 1
+    }
+  },
+  {
+    "numero": 67,
+    "descripcion": "ticket-editado-antes-reinicio",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets/4",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 4,
+      "codigo": "3873802b-38e1-4230-8ffc-5f63127bea26",
+      "ordenId": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "titular": "Comprador actualizado QA-20261013-d16ec48a",
+      "estado": "EMITIDO",
+      "creadoEn": "2026-10-13T22:37:39.134353Z",
+      "usadoEn": null,
+      "validadoPor": null
+    }
+  },
+  {
+    "numero": 68,
+    "descripcion": "usuario-despues-reinicio",
+    "servicio": "usuarios",
+    "metodo": "GET",
+    "url": "http://localhost:19081/api/usuarios/3",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Comprador actualizado QA-20261013-d16ec48a",
+      "email": "qa-20261013-d16ec48a@eventpass.cl",
+      "rol": "COMPRADOR",
+      "activo": false
+    }
+  },
+  {
+    "numero": 69,
+    "descripcion": "evento-despues-reinicio",
+    "servicio": "eventos",
+    "metodo": "GET",
+    "url": "http://localhost:19082/api/eventos/2",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Evento QA-20261013-d16ec48a",
+      "lugar": "Recinto QA actualizado",
+      "fecha": "2027-08-21T00:00:00Z",
+      "capacidad": 3,
+      "disponibles": 1,
+      "precio": 1000.0,
+      "activo": false
+    }
+  },
+  {
+    "numero": 70,
+    "descripcion": "orden-despues-reinicio",
+    "servicio": "ordenes",
+    "metodo": "GET",
+    "url": "http://localhost:19083/api/ordenes/2",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "cantidad": 2,
+      "precioUnitario": 1000.0,
+      "total": 2000.0,
+      "estado": "CONFIRMADA",
+      "creadaEn": "2026-10-13T22:37:34.670546Z",
+      "observacion": "Persistencia QA-20261013-d16ec48a"
+    }
+  },
+  {
+    "numero": 71,
+    "descripcion": "ticket-despues-reinicio",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets/3",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 3,
+      "codigo": "f5eca2a7-4b41-4566-aab5-f11d624c4d76",
+      "ordenId": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "titular": null,
+      "estado": "USADO",
+      "creadoEn": "2026-10-13T22:37:39.078297Z",
+      "usadoEn": "2026-10-13T22:37:41.955005Z",
+      "validadoPor": 1
+    }
+  },
+  {
+    "numero": 72,
+    "descripcion": "ticket-editado-despues-reinicio",
+    "servicio": "tickets",
+    "metodo": "GET",
+    "url": "http://localhost:19084/api/tickets/4",
+    "solicitud": null,
+    "esperado": 200,
+    "recibido": 200,
+    "correcto": true,
+    "respuesta": {
+      "id": 4,
+      "codigo": "3873802b-38e1-4230-8ffc-5f63127bea26",
+      "ordenId": 2,
+      "usuarioId": 3,
+      "eventoId": 2,
+      "titular": "Comprador actualizado QA-20261013-d16ec48a",
+      "estado": "EMITIDO",
+      "creadoEn": "2026-10-13T22:37:39.134353Z",
+      "usadoEn": null,
+      "validadoPor": null
+    }
+  }
+]
