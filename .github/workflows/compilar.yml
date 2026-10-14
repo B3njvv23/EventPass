@@ -1,0 +1,39 @@
+name: Compilar proyectos Java
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compilar:
+    name: Compilar ${{ matrix.servicio }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        servicio: [usuarios, eventos, tickets, ordenes, lambda-procesador]
+    defaults:
+      run:
+        working-directory: ${{ matrix.servicio }}
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+      - name: Configurar JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: '**/pom.xml'
+      - name: Compilar y empaquetar sin ejecutar pruebas
+        run: bash ./mvnw --batch-mode -Dmaven.test.skip=true package
